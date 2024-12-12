@@ -43,6 +43,32 @@ document.getElementById("city-search-form").addEventListener("submit", async (e)
 
 });
 
+// Populate the table with pre-determined cities
+async function populateCityTable() {
+    const tableBody = document.getElementById("city-weather-table");
+    tableBody.innerHTML = ""; // Clear the table before adding rows
+
+    for (const city of cities) {
+        const data = await fetchWeather(city);
+
+        if (data && data.main) {
+            const row = `
+                <tr>
+                    <td>${data.name}</td>
+                    <td>${data.main.temp}°C</td>
+                    <td>${data.main.temp_max}°C</td>
+                    <td>${data.main.temp_min}°C</td>
+                    <td>${data.clouds.all}%</td>
+                    <td>${data.wind.speed} m/s</td>
+                    <td>${data.main.humidity}%</td>
+                    <td>${data.main.pressure} hPa</td>
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        }
+    }
+}
+
 // Initial setup
 document.addEventListener("DOMContentLoaded", async () => {
     await populateCityTable();
