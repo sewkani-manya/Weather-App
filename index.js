@@ -1,15 +1,18 @@
 const apiKey = "API KEY HERE"
 const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
 
+const cities = ["New York", "Delhi", "London", "Tokyo", "Sydney"];
+
 async function fetchWeather (cityName)
 {
     try{
-        const response = await fetch(`${apiUrl}$(cityName)&appid=${apiKey}`);
+        const response = await fetch(`${apiUrl}${cityName}&appid=${apiKey}`);
         if (! response.ok) {
             throw new Error (`HTTP error! status: ${response.status}`);
         }
 
         const data= await response.json();
+        return data;
     }
     catch (error){
         console.error (`Error feching weather for ${cityName}:`, error);
